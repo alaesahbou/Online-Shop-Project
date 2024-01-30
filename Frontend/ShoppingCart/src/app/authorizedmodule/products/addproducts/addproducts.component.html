@@ -1,0 +1,123 @@
+<div class="w3l_banner_nav_right">
+  <div class="w3_login">
+    <h3>Add Products</h3>
+    <div class="w3_login_module">
+      <div class="module form-module">
+        <div></div>
+        <div class="form">
+          <div class="alert-message-container" *ngIf="userMessage">
+            <div
+              class="alert-message-item alert"
+              [ngClass]="{
+                'alert-success': !userErrorStatus,
+                'alert-danger': userErrorStatus
+              }"
+            >
+              {{ userMessage }}
+            </div>
+          </div>
+          <h2>Create a new product</h2>
+          <form
+            (submit)="addProducts(formTemplateRef)"
+            #formTemplateRef="ngForm"
+            enctype="multipart/form-data"
+          >
+            <select name="category" class="select-product-categories" ngModel [(ngModel)]="categoryDropdownSelectedValue">
+              <option
+                *ngFor="let category of productCategories"
+                value="{{ category.ProductCategoryName }}"
+              >
+                {{ category.ProductCategoryName }}
+              </option>
+            </select>
+            <input
+              type="text"
+              name="productname"
+              ngModel
+              placeholder="Product Name"
+              class="input"
+              required
+              #productname="ngModel"
+              pattern="^[a-zA-Z ]+$"
+              maxlength="16"
+              autocomplete="off"
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="productname.errors?.['required'] && (productname.touched || productname.dirty); else inputProductnameValidation;"
+            >
+              Product name cannot be empty
+            </div>
+            <ng-template #inputProductnameValidation>
+              <div
+                class="alert alert-danger"
+                *ngIf="productname.errors?.['pattern'] && productname.touched;"
+              >
+                Product name can only contain letters
+              </div>
+            </ng-template>
+            <input
+              type="number"
+              name="productprice"
+              ngModel
+              placeholder="Product Price"
+              class="input"
+              required
+              #productprice="ngModel"
+              pattern="\d*"
+              minlength="8"
+              autocomplete="off"
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="productprice.errors?.['required'] &&
+              (productprice.touched || productprice.dirty);"
+            >
+              Product price cannot be empty
+            </div>
+            <div class="file-container">
+              <label for="fileUpload">Upload Product Image</label>
+              <input
+                type="file"
+                id="fileUpload"
+                name="productImage"
+                ngModel
+                (change)="OnImageUpload($event)"
+                required
+                #productImage="ngModel"
+              />
+            </div>
+            <div
+              class="alert alert-danger"
+              *ngIf="productImage.errors?.['required'] && productImage.touched"
+            >
+              Please provide a product image
+            </div>
+            <textarea
+              name="productdescription"
+              ngModel
+              required
+              #productDesc="ngModel"
+              class="textarea-product-desc"
+              placeholder="Product Description"
+            >
+            </textarea>
+            <div
+              class="alert alert-danger"
+              *ngIf="productDesc.errors?.['required'] && (productDesc.touched || productDesc.dirty);"
+            >
+              Product description cannot be empty
+            </div>
+            <input
+              type="submit"
+              value="Add Product"
+              [disabled]="formTemplateRef.invalid"
+              [ngClass]="{ 'disabled-button': formTemplateRef.invalid }"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>

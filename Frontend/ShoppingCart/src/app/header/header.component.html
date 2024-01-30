@@ -1,0 +1,107 @@
+<!-- header -->
+<div class="agileits_header">
+  <div class="w3l_offers">
+    <a routerLink="/">Today's special Offers !</a>
+  </div>
+  <div class="w3l_search">
+    <form action="#" method="post">
+      <input
+        type="text"
+        name="Product"
+        required=""
+        [(ngModel)]="searchedProductName"
+        (keyup)="onSearchTextBoxKeyUpEvent()"
+        (focus)="onSearchTextBoxFocus()"
+        (blur)="onSearchTextBoxBlur()"
+        autocomplete="off"
+        maxlength="15"
+      />
+      <input type="submit" value=" " (click)="onSearchButtonClick()" />
+    </form>
+  </div>
+  <div class="product_list_header">
+    <a routerLink="authorized/viewcart">
+      <input
+        type="submit"
+        name="submit"
+        value="Cart Items : {{ cartCount }}"
+        class="button cart-items-button"
+      />
+    </a>
+  </div>
+  <div class="w3l_header_right">
+    <ul>
+      <li class="dropdown profile_details_drop">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+          ><i class="fa fa-user" aria-hidden="true"></i
+          ><span class="caret"></span
+        ></a>
+        <div class="mega-dropdown-menu">
+          <div class="w3ls_vegetables">
+            <ul
+              class="dropdown-menu drp-mnu"
+              *ngIf="!getIsUserLoggedIn"
+            >
+              <!--
+                    routerLink: backslash ( /login) specifies a new URL path.
+                -->
+              <li><a routerLink="/login">Login or Signup</a></li>
+            </ul>
+            <ul
+              class="dropdown-menu drp-mnu"
+              *ngIf="getIsUserLoggedIn"
+            >
+              <li><a routerLink="authorized/addproducts">Add products</a></li>
+              <li><a (click)="onLogoutClick()">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="w3l_header_right1">
+    <h2><a routerLink="comingsoon/Contact us">Contact Us</a></h2>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<div class="logo_products">
+  <div class="container">
+    <div class="w3ls_logo_products_left">
+      <h1>
+        <a routerLink="/"><span>Grocery</span> Store</a>
+      </h1>
+    </div>
+    <div class="w3ls_logo_products_left1">
+      <ul class="special_items">
+        <li><a routerLink="comingsoon/Events">Events</a><i>/</i></li>
+        <li><a routerLink="comingsoon/About us">About Us</a><i>/</i></li>
+        <li><a routerLink="comingsoon/Best deals">Best Deals</a><i>/</i></li>
+        <li><a routerLink="comingsoon/Services">Services</a></li>
+      </ul>
+    </div>
+    <div class="w3ls_logo_products_left1">
+      <ul class="phone_email">
+        <li><i class="fa fa-phone" aria-hidden="true"></i>(+0123) 234 567</li>
+        <li>
+          <i class="fa fa-envelope-o" aria-hidden="true"></i
+          ><a href="mailto:store@grocery.com">store@grocery.com</a>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+<!-- //header -->
+<!-- products-breadcrumb -->
+<div class="products-breadcrumb">
+  <div class="container">
+    <ul>
+      <li>
+        <i class="fa fa-home" aria-hidden="true"></i><a routerLink="/">Home</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- //products-breadcrumb -->

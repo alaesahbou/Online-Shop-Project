@@ -1,0 +1,195 @@
+<div class="w3l_banner_nav_right">
+  <!-- about -->
+  <div class="privacy about">
+    <h3>Chec<span>kout</span></h3>
+    <div class="checkout-right">
+      <h4>
+        Your shopping cart contains:
+        <span>{{ cartItemCollection.length }} Products</span>
+      </h4>
+      <div class="alert-message-container" *ngIf="userMessage">
+        <div
+          class="alert-message-item alert"
+          [ngClass]="{
+            'alert-success': !userErrorStatus,
+            'alert-danger': userErrorStatus || userDangerAlert
+          }"
+        >
+          {{ userMessage }}
+        </div>
+      </div>
+      <table class="timetable_sub" *ngIf="this.cartItemCollection.length > 0">
+        <caption>
+          Purchased products are summarized as cart items in this table
+        </caption>
+        <thead>
+          <tr>
+            <th>SL No.</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="rem1"
+            *ngFor="let cartItem of cartItemCollection; index as i"
+          >
+            <td class="invert">{{ i + 1 }}</td>
+            <td class="invert-image">
+              <a (click)="onProductSelected(cartItem)" class="pointer"
+                ><img
+                  src="{{ cartItem.ProductImageURL }}"
+                  alt=" "
+                  class="img-responsive"
+              /></a>
+            </td>
+            <td class="invert">
+              <div class="quantity">
+                <div class="quantity-select">
+                  <div
+                    class="entry value-minus"
+                    (click)="
+                      removeProductQuantityFromCart(
+                        cartItem.OrderID,
+                        cartItem.ProductID,
+                        i
+                      )
+                    "
+                  >
+                    &nbsp;
+                  </div>
+                  <div class="entry value">
+                    <span>{{ cartItem.Quantity }}</span>
+                  </div>
+                  <div
+                    class="entry value-plus active"
+                    (click)="addItemQtyToCart(cartItem.ProductID, i)"
+                  >
+                    &nbsp;
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="invert">{{ cartItem.Productname }}</td>
+
+            <td class="invert">{{ cartItem.TotalAmount | currency: "INR" }}</td>
+            <td class="invert">
+              <div class="rem">
+                <div
+                  class="close1"
+                  (click)="
+                    removeProductFromCart(
+                      cartItem.OrderID,
+                      cartItem.ProductID,
+                      i
+                    )
+                  "
+                ></div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="checkout-left" *ngIf="this.cartItemCollection.length > 0">
+      <div class="col-md-4 checkout-left-basket">
+        <h4>Continue to basket</h4>
+        <ul>
+          <li *ngFor="let cartItem of cartItemCollection">
+            {{ cartItem.Productname }}
+            <span>{{ cartItem.TotalAmount | currency: "INR" }}</span>
+          </li>
+          <li class="checkout-left-total">
+            Total <span>{{ grandTotalAmount | currency: "INR" }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-8 address_form_agile">
+        <h4>Add address details</h4>
+        <form
+          action="payment.html"
+          method="post"
+          class="creditly-card-form agileinfo_form"
+        >
+          <section class="creditly-wrapper wthree, w3_agileits_wrapper">
+            <div class="information-wrapper">
+              <div class="first-row form-group">
+                <div class="controls">
+                  <label class="control-label">Full name: </label>
+                  <input
+                    class="billing-address-name form-control"
+                    type="text"
+                    name="name"
+                    placeholder="Full name"
+                    [disabled]="true"
+                  />
+                </div>
+                <div class="w3_agileits_card_number_grids">
+                  <div class="w3_agileits_card_number_grid_left">
+                    <div class="controls">
+                      <label class="control-label">Mobile number:</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Mobile number"
+                        [disabled]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="w3_agileits_card_number_grid_right">
+                    <div class="controls">
+                      <label class="control-label">Landmark: </label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Landmark"
+                        [disabled]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+                <div class="controls">
+                  <label class="control-label">Town/City: </label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Town/City"
+                    [disabled]="true"
+                  />
+                </div>
+                <div class="controls">
+                  <label class="control-label">Address type: </label>
+                  <select class="form-control option-w3ls" [disabled]="true">
+                    <option>Office</option>
+                    <option>Home</option>
+                    <option>Commercial</option>
+                  </select>
+                </div>
+              </div>
+              <button class="submit check_out" routerLink="/comingsoon/Deliver">
+                Delivery to this Address
+              </button>
+            </div>
+          </section>
+        </form>
+        <div class="checkout-right-basket">
+          <a routerLink="/comingsoon/Payment"
+            >Make a Payment
+            <span
+              class="glyphicon glyphicon-chevron-right"
+              aria-hidden="true"
+            ></span
+          ></a>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  <!-- //about -->
+</div>
+<div class="clearfix"></div>
